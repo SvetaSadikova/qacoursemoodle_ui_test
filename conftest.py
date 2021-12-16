@@ -1,23 +1,36 @@
-import pytest as pytest
+import logging
+
+import pytest
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 
+from fixtures.models.login_data import LoginData
 from fixtures.pages.app_moodle import ApplicationMoodle
 
+my_logger = logging.getLogger('moodle')
 
-@pytest.fixture() # TODO add (scope='session')
+
+# TODO add (scope='session')
+@pytest.fixture()
+def data_for_login(request):
+    userlogin = request.config.getoption('--base_username')
+    userPassword = request.config.getoption('--base_password')
+    return LoginData(userlogin, userPassword)
+
+
+@pytest.fixture()
 def app_moodle(request):
-    url = request.config.getoption("--base_moodle_url")
+    url = request.config.getoption("--base_moodleUrl")
     driver = webdriver.Chrome(ChromeDriverManager().install())
+    my_logger.info(f'Open browser with URL {url}')
     moodle = ApplicationMoodle(driver, url)
     yield moodle
     moodle.quit()
+    my_logger.info(f'End session. Close browser')
 
 
 def pytest_addoption(parser):
-    parser.addoption("--base_moodle_url", action="store", default="https://qacoursemoodle.innopolis.university/login/index.php", help="Moodle url")
-
-
-
-
-
+    parser.addoption("--base_username", action="store", default="super_qa_2021", help="Moodle username"),
+    parser.addoption("--base_password", action="store", default="password11!", help="Moodle password"),
+    parser.addoption("--base_moodleUrl", action="store",
+                     default="https://qacoursemoodle.innopolis.university/login/index.php", help="Moodle url")

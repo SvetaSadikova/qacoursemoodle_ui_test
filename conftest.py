@@ -5,13 +5,13 @@ from webdriver_manager.chrome import ChromeDriverManager
 from fixtures.pages.app_moodle import ApplicationMoodle
 
 
-@pytest.fixture()
+@pytest.fixture() # TODO add (scope='session')
 def app_moodle(request):
     url = request.config.getoption("--base_moodle_url")
     driver = webdriver.Chrome(ChromeDriverManager().install())
-    appMoodle = ApplicationMoodle(driver, url)
-    yield appMoodle
-    appMoodle.quit()
+    moodle = ApplicationMoodle(driver, url)
+    yield moodle
+    moodle.quit()
 
 
 def pytest_addoption(parser):

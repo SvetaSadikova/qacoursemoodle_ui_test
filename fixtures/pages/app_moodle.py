@@ -1,4 +1,4 @@
-from fixtures.pages.login_f import LoginMoodle
+from fixtures.pages.login_page import LoginMoodle
 
 
 class ApplicationMoodle:

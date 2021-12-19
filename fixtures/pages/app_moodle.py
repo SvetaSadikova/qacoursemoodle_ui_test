@@ -4,18 +4,18 @@ from fixtures.pages.registration_page import RegistrationPage
 
 class ApplicationMoodle:
     def __init__(self, driver, url):
-        self.MyDriver = driver
-        self.MyUrl = url
-        self.MyLogin = LoginMoodle(self)
-        self.MyRegistration = RegistrationPage(self)
+        self.my_driver = driver
+        self.my_url = url
+        self.my_login = LoginMoodle(self)
+        self.my_registration = RegistrationPage(self)
 
     def quit(self):
-        self.MyDriver.quit()
+        self.my_driver.quit()
 
     def open_login_page(self):
-        #   self.MyDriver.get(self.MyUrl)
-        link = self.MyUrl + '/login/index.php'
-        self.MyDriver.get(link)
+        #   self.my_driver.get(self.my_url)
+        link = self.my_url + '/login/index.php'
+        self.my_driver.get(link)
 
     def open_registration_page(self):
         """
@@ -24,5 +24,5 @@ class ApplicationMoodle:
         https://qacoursemoodle.innopolis.university/
         а в методе добавлять к нему абсолютные пути
         """
-        link = self.MyUrl + '/login/signup.php'
-        self.MyDriver.get(link)
+        link = self.my_url + '/login/signup.php'
+        self.my_driver.get(link)

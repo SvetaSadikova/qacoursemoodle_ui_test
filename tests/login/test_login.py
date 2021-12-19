@@ -17,7 +17,7 @@ class TestLogin:
         app_moodle.open_login_page()
         moodle_logger.info('Open login page')
         login_data = data_for_login
-        app_moodle.MyLogin.auth_fun(data_for_login=login_data, is_submit=true)
+        app_moodle.my_login.auth_fun(data_for_login=login_data, is_submit=true)
         moodle_logger.info(f'Login with login {login_data.log} and password {login_data.passw}')
         assert 1 == 1
 
@@ -30,5 +30,5 @@ class TestLogin:
         """
         app_moodle.open_login_page()
         login_data = LoginData.randomize()
-        app_moodle.MyLogin.auth_fun(login_data)
-        assert app_moodle.MyLogin.error_text() == 'Неверный логин или пароль, попробуйте заново.'
+        app_moodle.my_login.auth_fun(login_data)
+        assert app_moodle.my_login.error_text() == 'Неверный логин или пароль, попробуйте заново.'

@@ -20,6 +20,6 @@ class TestRegistration:
 
         moodle_logger.info('Open registration page')
         registration_data = RegistrationData.randomize()
-        app_moodle.MyRegistration.filling_registration_form(data_for_registration=registration_data, is_submit=true)
+        app_moodle.my_registration.filling_registration_form(data_for_registration=registration_data, is_submit=true)
         moodle_logger.info(f'Filling registration info: login {registration_data.log}, password {registration_data.passw}, name{registration_data.name}, surname {registration_data.surname} ')
         assert 1 == 1

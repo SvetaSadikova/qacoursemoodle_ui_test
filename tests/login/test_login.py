@@ -1,5 +1,8 @@
 import logging
 
+import pytest
+
+from fixtures.constants import Constants
 from fixtures.models.fake_data import LoginData
 
 moodle_logger = logging.getLogger('moodle')
@@ -31,4 +34,21 @@ class TestLogin:
         app_moodle.open_login_page()
         login_data = LoginData.randomize()
         app_moodle.my_login.auth_fun(login_data)
-        assert app_moodle.my_login.error_text() == 'Неверный логин или пароль, попробуйте заново.'
+        moodle_logger.info(f'Try to login with login {login_data.log} and password {login_data.passw}')
+        assert app_moodle.my_login.error_text() == Constants.LOGIN_ERROR_MESSAGE, 'Проверь текст ошибки'
+
+    @pytest.mark.parametrize('input_data', ['log', 'passw'])
+    def test_login_with_none_input(self, app_moodle, input_data):
+        """
+        1. NONE password
+        2. NONE login
+        """
+        app_moodle.open_login_page()
+        login_data = LoginData.randomize()
+        moodle_logger.info(f' Login is {login_data.log}, password is  {login_data.passw}')
+        setattr(login_data, input_data, None)
+        moodle_logger.info(f'Setattr Login is {login_data.log} setattr Password is {login_data.passw}')
+        app_moodle.my_login.auth_fun(login_data)
+        moodle_logger.info(f' Login is {login_data.log}, password is  {login_data.passw}')
+        assert app_moodle.my_login.error_text() == Constants.LOGIN_ERROR_MESSAGE, 'Проверь текст ошибки'
+

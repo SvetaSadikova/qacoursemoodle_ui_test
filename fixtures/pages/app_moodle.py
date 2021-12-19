@@ -19,6 +19,7 @@ class ApplicationMoodle:
 
     def open_registration_page(self):
         """
+        DONE
         тут надо придумать как передавать адрес конкретной страницы.
         Как варинт в фикстуру app_moodle в --base_moodle_url в качестве дефолтного передать главную страницу
         https://qacoursemoodle.innopolis.university/

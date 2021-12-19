@@ -21,10 +21,10 @@ class LoginMoodle(BasePage):
         Функция авторизации
         TODO Добавить проверку на is_login
         """
-        self.__login_input().send_keys(data_for_login.log)
-        self.__password_input().send_keys(data_for_login.passw)
+        self.input_data_method(data_for_login.log, locator_name=(By.ID, 'username'))
+        self.input_data_method(data_for_login.passw, locator_name=(By.ID, 'password'))
         if is_submit:
-            self.__submit_button().click()
+            self.click_method(locator_name=(By.ID, 'loginbtn'), wait_time=3)
 
     def error_text(self):
         error_text = self.find_element_method(locator_name=(By.ID, 'loginerrormessage'))
